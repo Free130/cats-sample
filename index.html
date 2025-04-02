@@ -54,6 +54,18 @@
             pointer-events: auto;
         }
 
+        #lightbox-caption {
+            position: absolute;
+            bottom: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 90%;
+        }
+
         /* Arrows for navigation */
         .arrow {
             position: absolute;
@@ -86,11 +98,9 @@
     <!-- Lightbox Container -->
     <div class="lightbox" id="lightbox">
         <img id="lightbox-img" src="" alt="Enlarged Cat">
+        <p id="lightbox-caption"></p>
         <div class="arrow left-arrow" id="prev">&#8592;</div>
         <div class="arrow right-arrow" id="next">&#8594;</div>
-    </div>
-    <div class="caption-wrapper">
-        <p id="lightbox-caption"></p>
     </div>
 
     <script>
@@ -176,12 +186,25 @@
                 });
 
 
-            const lightboxCaption = document.getElementById('lightbox-caption');
+                const lightboxCaption = document.getElementById('lightbox-caption');
 
-            const formatCaption = (filename) => {
-                return filename.replace(/([A-Z])/g, ' $1').replace('.jpg', '').trim();
-            };
+                const formatCaption = (filename) => {
+                    return filename
+                        .replace(/([A-Z])/g, ' $1') // Add spaces before capital letters
+                        .replace(/_/g, ' ')         // Replace underscores with spaces
+                        .replace('.jpg', '')        // Remove file extension
+                        .trim();
+                };
 
+                // Update the lightbox to show image + caption
+                img.addEventListener('click', () => {
+                    currentIndex = index;
+                    lightboxImg.src = img.src;
+                    lightboxCaption.textContent = formatCaption(image);
+                    lightbox.classList.add('show');
+                });
+
+            // Improve Image Transitions
             const updateLightboxImage = () => {
                 lightboxImg.style.opacity = '0';
                 setTimeout(() => {
