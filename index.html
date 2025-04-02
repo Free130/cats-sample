@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallerie de chats</title>
+    <title>Cat Gallery</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,11 +30,26 @@
 </head>
 <body>
     <h1>Cat Gallery</h1>
-    <div class="gallery">
-        <img src="CapucineArtemisMignonisme.jpg" alt="Cat 1">
-        <img src="HermesGroomingOnHisThroneInTheSun.jpg" alt="Cat 2">
-        <img src="HermesOnHisThrone.jpg" alt="Cat 3">
-    </div>
+    <div class="gallery"></div>
+
+    <script>
+        // List of cat image filenames (without needing manual <img> tags)
+        const catImages = [
+            "CapucineArtemisMignonisme.jpg",
+            "HermesGroomingOnHisThroneInTheSun.jpg",
+            "HermesOnHisThrone.jpg"
+        ];
+        
+        // Get the gallery div
+        const gallery = document.querySelector('.gallery');
+
+        // Loop through the image array and add images to the gallery
+        catImages.forEach(image => {
+            let img = document.createElement('img');
+            img.src = `${image}`; // Adjust folder path if needed
+            img.alt = image.split('.')[0]; // Set alt text dynamically
+            gallery.appendChild(img);
+        });
+    </script>
 </body>
 </html>
-
