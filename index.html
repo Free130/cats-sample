@@ -155,6 +155,23 @@
 
         });
 
+
+        prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateLightboxImage();
+            }
+        });
+
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentIndex < catImages.length - 1) {
+                currentIndex++;
+                updateLightboxImage();
+            }
+        });
+
         // Close lightbox when clicking outside the image (but not on arrows)
         lightbox.addEventListener('click', (e) => {
             if (e.target !== lightboxImg && !e.target.classList.contains('arrow')) {
