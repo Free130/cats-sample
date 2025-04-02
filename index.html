@@ -52,6 +52,25 @@
             opacity: 1;
             pointer-events: auto;
         }
+
+        /* Arrows for navigation */
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .left-arrow {
+            left: 20px;
+        }
+        .right-arrow {
+            right: 20px;
+        }
     </style>
 </head>
 <body>
@@ -61,6 +80,8 @@
     <!-- Lightbox Container -->
     <div class="lightbox" id="lightbox">
         <img id="lightbox-img" src="" alt="Enlarged Cat">
+        <div class="arrow left-arrow" id="prev">&#8592;</div>
+        <div class="arrow right-arrow" id="next">&#8594;</div>
     </div>
 
     <script>
@@ -79,13 +100,18 @@
         const gallery = document.querySelector('.gallery');
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
+        const prevBtn = document.getElementById('prev');
+        const nextBtn = document.getElementById('next');
+        
+        let currentIndex = -1;
 
         // Add images to the gallery
-        catImages.forEach(image => {
+        catImages.forEach((image, index) => {
             let img = document.createElement('img');
             img.src = `${image}`;
             img.alt = image.split('.')[0];
             img.addEventListener('click', () => {
+                currentIndex = index;
                 lightboxImg.src = img.src;
                 lightbox.classList.add('show');
             });
@@ -96,6 +122,22 @@
         lightbox.addEventListener('click', (e) => {
             if (e.target !== lightboxImg) {
                 lightbox.classList.remove('show');
+            }
+        });
+
+        // Show previous image
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                lightboxImg.src = catImages[currentIndex];
+            }
+        });
+
+        // Show next image
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < catImages.length - 1) {
+                currentIndex++;
+                lightboxImg.src = catImages[currentIndex];
             }
         });
     </script>
