@@ -152,6 +152,7 @@
                 lightboxCaption.textContent = formatCaption(image);
                 lightbox.classList.add('show');
             });
+
         });
 
         // Close lightbox when clicking outside the image (but not on arrows)
@@ -212,13 +213,6 @@
                 .trim();
         };
 
-        // Update the lightbox to show image + caption
-        img.addEventListener('click', () => {
-            currentIndex = index;
-            lightboxImg.src = img.src;
-            lightboxCaption.textContent = formatCaption(image);
-            lightbox.classList.add('show');
-        });
 
 
     </script>
