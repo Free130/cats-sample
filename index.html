@@ -58,18 +58,23 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2rem;
+            font-size: 3rem;
             color: white;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
             border-radius: 50%;
             cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+        .arrow:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
         .left-arrow {
-            left: 20px;
+            left: 30px;
         }
         .right-arrow {
-            right: 20px;
+            right: 30px;
         }
     </style>
 </head>
@@ -118,23 +123,24 @@
             gallery.appendChild(img);
         });
 
-        // Close lightbox when clicking outside the image
+        // Close lightbox when clicking outside the image (but not on arrows)
         lightbox.addEventListener('click', (e) => {
-            if (e.target !== lightboxImg) {
+            if (e.target !== lightboxImg && !e.target.classList.contains('arrow')) {
                 lightbox.classList.remove('show');
             }
         });
 
-        // Show previous image
-        prevBtn.addEventListener('click', () => {
+        // Prevent closing when clicking arrows
+        prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             if (currentIndex > 0) {
                 currentIndex--;
                 lightboxImg.src = catImages[currentIndex];
             }
         });
 
-        // Show next image
-        nextBtn.addEventListener('click', () => {
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             if (currentIndex < catImages.length - 1) {
                 currentIndex++;
                 lightboxImg.src = catImages[currentIndex];
