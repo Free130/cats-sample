@@ -89,8 +89,9 @@
         <div class="arrow left-arrow" id="prev">&#8592;</div>
         <div class="arrow right-arrow" id="next">&#8594;</div>
     </div>
-    <p id="lightbox-caption"></p>
-
+    <div class="caption-wrapper">
+        <p id="lightbox-caption"></p>
+    </div>
 
     <script>
         const catImages = [
@@ -175,24 +176,19 @@
                 });
 
 
-                const lightboxCaption = document.getElementById('lightbox-caption');
+            const lightboxCaption = document.getElementById('lightbox-caption');
 
-                const formatCaption = (filename) => {
-                    return filename.replace(/([A-Z])/g, ' $1').replace('.jpg', '').trim();
-                };
+            const formatCaption = (filename) => {
+                return filename.replace(/([A-Z])/g, ' $1').replace('.jpg', '').trim();
+            };
 
-
-
-
-                /*****/
-
-                    const updateLightboxImage = () => {
-                        lightboxImg.style.opacity = '0';
-                        setTimeout(() => {
-                            lightboxImg.src = catImages[currentIndex];
-                            lightboxImg.style.opacity = '1';
-                        }, 200);
-                    };
+            const updateLightboxImage = () => {
+                lightboxImg.style.opacity = '0';
+                setTimeout(() => {
+                    lightboxImg.src = catImages[currentIndex];
+                    lightboxImg.style.opacity = '1';
+                }, 200);
+            };
 
 
     </script>
