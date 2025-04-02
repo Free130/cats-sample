@@ -179,21 +179,6 @@
             }
         });
 
-
-        const updateLightboxImage = () => {
-            lightboxImg.style.opacity = '0';
-            setTimeout(() => {
-                if (currentIndex < 0) {
-                    currentIndex = catImages.length - 1; // Loop back to last image
-                } else if (currentIndex >= catImages.length) {
-                    currentIndex = 0; // Loop back to first image
-                }
-                lightboxImg.src = catImages[currentIndex];
-                lightboxCaption.textContent = formatCaption(catImages[currentIndex]);
-                lightboxImg.style.opacity = '1';
-            }, 200);
-        };
-
         document.addEventListener('keydown', (e) => {
             if (!lightbox.classList.contains('show')) return; // Only listen when lightbox is open
 
@@ -218,7 +203,19 @@
                 .trim();
         };
 
-
+        const updateLightboxImage = () => {
+            lightboxImg.style.opacity = '0';
+            setTimeout(() => {
+                if (currentIndex < 0) {
+                    currentIndex = catImages.length - 1; // Loop back to last image
+                } else if (currentIndex >= catImages.length) {
+                    currentIndex = 0; // Loop back to first image
+                }
+                lightboxImg.src = catImages[currentIndex];
+                lightboxCaption.textContent = formatCaption(catImages[currentIndex]);
+                lightboxImg.style.opacity = '1';
+            }, 200);
+        };
 
     </script>
 </body>
