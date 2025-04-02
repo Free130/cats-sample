@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #222;
+            color: white;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            padding: 20px;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Cat Gallery</h1>
+    <div class="gallery">
+        <img src="cats-sample/CapucineArtemisMignonisme.jpg" alt="Cat 1">
+        <img src="cats-sample/HermesGroomingOnHisThroneInTheSun.jpg" alt="Cat 2">
+        <img src="cats-sample/HermesOnHisThrone.jpg" alt="Cat 3">
+    </div>
+</body>
+</html>
+
