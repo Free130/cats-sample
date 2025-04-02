@@ -186,23 +186,6 @@
             }
         });
 
-
-
-        document.addEventListener('keydown', (e) => {
-            if (!lightbox.classList.contains('show')) return; // Only listen when lightbox is open
-
-            if (e.key === 'ArrowLeft' && currentIndex > 0) {
-                currentIndex--;
-                lightboxImg.src = catImages[currentIndex];
-            } else if (e.key === 'ArrowRight' && currentIndex < catImages.length - 1) {
-                currentIndex++;
-                lightboxImg.src = catImages[currentIndex];
-            } else if (e.key === 'Escape') {
-                lightbox.classList.remove('show');
-            }
-        });
-
-
         const lightboxCaption = document.getElementById('lightbox-caption');
 
         const formatCaption = (filename) => {
