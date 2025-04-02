@@ -156,40 +156,40 @@
         });
 
         const updateLightboxImage = () => {
-            console.log("Before update:", currentIndex); // Debug log
+            console.log("Before update:", currentIndex);
 
-            // Ensure currentIndex loops properly before updating the image
+            // Fix: Adjust index BEFORE updating the image
             if (currentIndex < 0) {
-                currentIndex = catImages.length - 1; // Loop back to last image
+                currentIndex = catImages.length - 1; // Loop to last image
             } else if (currentIndex >= catImages.length) {
-                currentIndex = 0; // Loop back to first image
+                currentIndex = 0; // Loop to first image
             }
 
-            console.log("After loop logic:", currentIndex); // Debug log
+            console.log("After loop logic:", currentIndex);
+
             lightboxImg.style.opacity = '0';
 
             setTimeout(() => {
+                console.log("Setting image:", catImages[currentIndex]);
                 lightboxImg.src = catImages[currentIndex];
                 lightboxCaption.textContent = formatCaption(catImages[currentIndex]);
                 lightboxImg.style.opacity = '1';
             }, 200);
         };
 
-
+        // 🔥 Fix: Update index BEFORE calling updateLightboxImage
         prevBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateLightboxImage();
-            }
+            console.log("Prev button clicked");
+            currentIndex = (currentIndex - 1 + catImages.length) % catImages.length; // Circular logic
+            updateLightboxImage();
         });
 
         nextBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (currentIndex < catImages.length - 1) {
-                currentIndex++;
-                updateLightboxImage();
-            }
+            console.log("Next button clicked");
+            currentIndex = (currentIndex + 1) % catImages.length; // Circular logic
+            updateLightboxImage();
         });
 
         // Close lightbox when clicking outside the image (but not on arrows)
