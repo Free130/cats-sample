@@ -155,6 +155,26 @@
 
         });
 
+        const updateLightboxImage = () => {
+            console.log("Before update:", currentIndex); // Debug log
+
+            // Ensure currentIndex loops properly before updating the image
+            if (currentIndex < 0) {
+                currentIndex = catImages.length - 1; // Loop back to last image
+            } else if (currentIndex >= catImages.length) {
+                currentIndex = 0; // Loop back to first image
+            }
+
+            console.log("After loop logic:", currentIndex); // Debug log
+            lightboxImg.style.opacity = '0';
+
+            setTimeout(() => {
+                lightboxImg.src = catImages[currentIndex];
+                lightboxCaption.textContent = formatCaption(catImages[currentIndex]);
+                lightboxImg.style.opacity = '1';
+            }, 200);
+        };
+
 
         prevBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -202,24 +222,6 @@
                 .replace('.jpg', '')        // Remove file extension
                 .trim();
         };
-
-        const updateLightboxImage = () => {
-            // Ensure currentIndex loops properly before updating the image
-            if (currentIndex < 0) {
-                currentIndex = catImages.length - 1; // Loop back to last image
-            } else if (currentIndex >= catImages.length) {
-                currentIndex = 0; // Loop back to first image
-            }
-
-            lightboxImg.style.opacity = '0';
-
-            setTimeout(() => {
-                lightboxImg.src = catImages[currentIndex];
-                lightboxCaption.textContent = formatCaption(catImages[currentIndex]);
-                lightboxImg.style.opacity = '1';
-            }, 200);
-        };
-
 
     </script>
 </body>
