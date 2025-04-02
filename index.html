@@ -151,13 +151,22 @@
                 lightbox.classList.remove('show');
             }
         });
+        const updateLightboxImage = () => {
+    
+            lightboxImg.style.opacity = '0';
+            setTimeout(() => {
+                lightboxImg.src = catImages[currentIndex];
+                lightboxCaption.textContent = formatCaption(catImages[currentIndex]); // Update caption
+                lightboxImg.style.opacity = '1';
+            }, 200);
+        };
 
-        // Prevent closing when clicking arrows
+        // Modify arrow click events to use updateLightboxImage()
         prevBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             if (currentIndex > 0) {
                 currentIndex--;
-                lightboxImg.src = catImages[currentIndex];
+                updateLightboxImage();
             }
         });
 
@@ -165,9 +174,27 @@
             e.stopPropagation();
             if (currentIndex < catImages.length - 1) {
                 currentIndex++;
-                lightboxImg.src = catImages[currentIndex];
+                updateLightboxImage();
             }
         });
+
+
+        // // Prevent closing when clicking arrows
+        // prevBtn.addEventListener('click', (e) => {
+        //     e.stopPropagation();
+        //     if (currentIndex > 0) {
+        //         currentIndex--;
+        //         lightboxImg.src = catImages[currentIndex];
+        //     }
+        // });
+
+        // nextBtn.addEventListener('click', (e) => {
+        //     e.stopPropagation();
+        //     if (currentIndex < catImages.length - 1) {
+        //         currentIndex++;
+        //         lightboxImg.src = catImages[currentIndex];
+        //     }
+        // });
 
             /****/
 
@@ -204,14 +231,14 @@
                     lightbox.classList.add('show');
                 });
 
-            // Improve Image Transitions
-            const updateLightboxImage = () => {
-                lightboxImg.style.opacity = '0';
-                setTimeout(() => {
-                    lightboxImg.src = catImages[currentIndex];
-                    lightboxImg.style.opacity = '1';
-                }, 200);
-            };
+            // // Improve Image Transitions
+            // const updateLightboxImage = () => {
+            //     lightboxImg.style.opacity = '0';
+            //     setTimeout(() => {
+            //         lightboxImg.src = catImages[currentIndex];
+            //         lightboxImg.style.opacity = '1';
+            //     }, 200);
+            // };
 
 
     </script>
