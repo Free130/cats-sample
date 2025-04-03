@@ -113,7 +113,27 @@
         <div class="arrow right-arrow" id="next">&#8594;</div>
     </div>
 
+    <audio id="bg-music" loop autoplay>
+        <source src="https://free130.github.io/cats-sample/bg-music.mp3" type="audio/mp3">
+        Audio non supporté
+    </audio>
+    <button id="music-toggle">Play/Pause Music</button>
+
     <script>
+
+    const bgMusic = document.getElementById("bg-music");
+    const musicToggle = document.getElementById("music-toggle");
+
+    musicToggle.addEventListener("click", () => {
+        if (bgMusic.paused) {
+            bgMusic.play();
+            musicToggle.textContent = "Pause Music";
+        } else {
+            bgMusic.pause();
+            musicToggle.textContent = "Play Music";
+        }
+    });
+
         const catImages = [
             "ArianeYeuxBrillants.jpg",
             "CapucineArtemisMignonisme.jpg",
