@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="main.js"></script>
+
     <title>Galerie de chats</title>
     <style>
         body {
@@ -135,17 +137,25 @@
         }
     });
 
-        const catImages = [
-            "ArianeYeuxBrillants.jpg",
-            "CapucineArtemisMignonisme.jpg",
-            "HermesRegardeLaTempete.jpg",
-            "HermesSurSonTrone.jpg",
-            "Io.jpg",
-            "ArtemisRegardVilain.jpg",
-            "CapucineLaineAdorable.jpg",
-            "HermesSeLecheSurSonTrone.jpg",
-            "SuperAriane.jpg"
-        ];
+
+
+//     const catImages = [
+//     "ArtemisMinushTable.jpg",
+//     "ArtemisRegardVilain.jpg",
+//     "CapucineArtemisMignonisme.jpg",
+//     "CapucineLaineAdorable.jpg",
+//     "CapucineSurLeLit_20250210_105918.jpg",
+//     "HermesRegardeLaTempete.jpg",
+//     "HermesSeLecheSurSonTrone.jpg",
+//     "HermesSurSonTrone.jpg",
+//     "_IMG_20250211_092205.jpg",
+//     "_IMG_20250220_091628.jpg",
+//     "Io.jpg",
+//     "MinushNuageTable.jpg",
+// ];
+
+
+
         const gallery = document.querySelector('.gallery');
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
@@ -230,12 +240,14 @@
         const lightboxCaption = document.getElementById('lightbox-caption');
 
         const formatCaption = (filename) => {
-            return filename
-                .replace(/([A-Z])/g, ' $1') // Add spaces before capital letters
-                .replace(/_/g, ' ')         // Replace underscores with spaces
-                .replace('.jpg', '')        // Remove file extension
-                .trim();
-        };
+        return filename
+            .replace(/^_?IMG[_-]?/, '')                            // Remove leading IMG or _IMG
+            .replace(/\.(jpg|jpeg|png)$/i, '')                    // Remove file extension
+            .replace(/_/g, ' ')                                   // Replace underscores with spaces
+            .replace(/([a-z])([A-Z])/g, '$1 $2')                  // Add space before capital letters
+            .replace(/(\d{4})(\d{2})(\d{2})[ _-]?(\d{2})(\d{2})/, '$1-$2-$3 $4:$5') // Format date/time
+            .trim();
+    };
 
     </script>
 </body>
