@@ -78,7 +78,6 @@
         const updateLightboxImage = () => {
             const image = catImages[currentIndex];
 
-            // Fade out
             lightboxImg.style.opacity = '0';
 
             // Delay to let fade-out complete before switching image
@@ -86,9 +85,14 @@
                 lightboxImg.src = image;
                 lightboxCaption.textContent = formatCaption(image);
 
-                // Wait a tick to let the image load before fading back in
+                // Reset animation class (re-trigger)
+                lightboxImg.classList.remove('bounce');
+                void lightboxImg.offsetWidth; // Force reflow
+
+                // Wait a tick to let the image load before fading in and bouncing
                 requestAnimationFrame(() => {
                     lightboxImg.style.opacity = '1';
+                    lightboxImg.classList.add('bounce');
                 });
             }, 200);
         };
@@ -143,14 +147,31 @@
         const lightboxCaption = document.getElementById('lightbox-caption');
 
         const formatCaption = (filename) => {
-            return filename
-                .replace(/^_?IMG[_-]?/, '')                            // Remove leading IMG or _IMG
-                .replace(/\.(jpg|jpeg|png)$/i, '')                    // Remove file extension
-                .replace(/_/g, ' ')                                   // Replace underscores with spaces
-                .replace(/([a-z])([A-Z])/g, '$1 $2')                  // Add space before capital letters
-                .replace(/(\d{4})(\d{2})(\d{2})[ _-]?(\d{2})(\d{2})/, '$1-$2-$3 $4:$5') // Format date/time
+            const frenchMonths = [
+                'janvier', 'février', 'mars', 'avril', 'mai', 'juin',
+                'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'
+            ];
+
+            let clean = filename
+                .replace(/\.(jpg|jpeg|png)$/i, '')              // Remove extension
+                .replace(/IMG[_-]?/gi, '')                      // Remove any 'IMG', '_IMG', 'IMG_'
+                .replace(/_/g, ' ')                             // Replace underscores with spaces
+                .replace(/([a-z])([A-Z])/g, '$1 $2')            // Space before capital letters
                 .trim();
+
+            // Extract datetime pattern
+            const dateMatch = clean.match(/(\d{4})(\d{2})(\d{2})[ _-]?(\d{2})(\d{2})/);
+            if (dateMatch) {
+                const [full, y, m, d, h, min] = dateMatch;
+                const monthName = frenchMonths[parseInt(m, 10) - 1];
+                const formattedDate = `${parseInt(d)} ${monthName} ${y} à ${parseInt(h)}h`;
+                clean = clean.replace(full, formattedDate);
+            }
+
+            return clean;
         };
+
+
 
     </script>
 </body>

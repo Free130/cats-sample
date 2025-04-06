@@ -65,6 +65,18 @@ body {
     max-width: 90%;
 }
 
+#lightbox-img {
+    max-width: 90%;
+    max-height: 80vh;
+    transition: opacity 0.3s ease;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); /* moody shadow */
+    border-radius: 10px; /* optional but smooth */
+    background: rgba(255, 255, 255, 0.05); /* soft back-glow */
+    outline: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(2px);
+}
+
+
 /* Arrows for navigation */
 .arrow {
     position: absolute;
@@ -90,4 +102,24 @@ body {
 
 .right-arrow {
     right: 30px;
+}
+
+
+
+@keyframes bounce-in {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.02);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#lightbox-img.bounce {
+    animation: bounce-in 300ms ease;
 }
