@@ -76,22 +76,23 @@
         let currentIndex = -1;
 
         const updateLightboxImage = () => {
-            if (currentIndex < 0) {
-                currentIndex = catImages.length - 1;
-            } else if (currentIndex >= catImages.length) {
-                currentIndex = 0;
-            }
-
             const image = catImages[currentIndex];
 
+            // Fade out
             lightboxImg.style.opacity = '0';
 
+            // Delay to let fade-out complete before switching image
             setTimeout(() => {
                 lightboxImg.src = image;
                 lightboxCaption.textContent = formatCaption(image);
-                lightboxImg.style.opacity = '1';
+
+                // Wait a tick to let the image load before fading back in
+                requestAnimationFrame(() => {
+                    lightboxImg.style.opacity = '1';
+                });
             }, 200);
         };
+
 
         prevBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -115,14 +116,27 @@
         document.addEventListener('keydown', (e) => {
             if (!lightbox.classList.contains('show')) return; // Only listen when lightbox is open
 
-            if (e.key === 'ArrowLeft' && currentIndex > 0) {
-                currentIndex--;
+            if (e.key === 'ArrowLeft') {
+                currentIndex = (currentIndex - 1 + catImages.length) % catImages.length;
                 updateLightboxImage();
-            } else if (e.key === 'ArrowRight' && currentIndex < catImages.length - 1) {
-                currentIndex++;
+            } else if (e.key === 'ArrowRight') {
+                currentIndex = (currentIndex + 1) % catImages.length;
                 updateLightboxImage();
             } else if (e.key === 'Escape') {
                 lightbox.classList.remove('show');
+            }
+        });
+
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target !== lightboxImg && !e.target.classList.contains('arrow')) {
+                lightbox.classList.remove('show');
+
+                // Clear image after closing animation
+                setTimeout(() => {
+                    lightboxImg.src = '';
+                    lightboxCaption.textContent = '';
+                }, 300);
             }
         });
 
