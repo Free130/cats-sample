@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="module" src="main.js"></script>
+    <!-- <script type="module" src="main.js"></script> -->
 
     <title>Galerie de chats</title>
     <style>
@@ -120,39 +120,48 @@
         <source src="https://free130.github.io/cats-sample/bg-music.mp3" type="audio/mp3">
         Audio non supporté
     </audio>
-    
+
 
     <script>
 
-    const bgMusic = document.getElementById("bg-music");
-    const musicToggle = document.getElementById("music-toggle");
+        const bgMusic = document.getElementById("bg-music");
+        const musicToggle = document.getElementById("music-toggle");
 
-    musicToggle.addEventListener("click", () => {
-        if (bgMusic.paused) {
-            bgMusic.play();
-            musicToggle.textContent = "Pause Music";
-        } else {
-            bgMusic.pause();
-            musicToggle.textContent = "Play Music";
-        }
-    });
+        musicToggle.addEventListener("click", () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicToggle.textContent = "Pause Music";
+            } else {
+                bgMusic.pause();
+                musicToggle.textContent = "Play Music";
+            }
+        });
+
+
+        fetch('./catsImagesList.json')
+            .then(response => response.json())
+            .then(catImages => {
+                catImages.forEach(img => {
+                    console.log("Loaded:", img);
+                });
+            });
 
 
 
-//     const catImages = [
-//     "ArtemisMinushTable.jpg",
-//     "ArtemisRegardVilain.jpg",
-//     "CapucineArtemisMignonisme.jpg",
-//     "CapucineLaineAdorable.jpg",
-//     "CapucineSurLeLit_20250210_105918.jpg",
-//     "HermesRegardeLaTempete.jpg",
-//     "HermesSeLecheSurSonTrone.jpg",
-//     "HermesSurSonTrone.jpg",
-//     "_IMG_20250211_092205.jpg",
-//     "_IMG_20250220_091628.jpg",
-//     "Io.jpg",
-//     "MinushNuageTable.jpg",
-// ];
+        //     const catImages = [
+        //     "ArtemisMinushTable.jpg",
+        //     "ArtemisRegardVilain.jpg",
+        //     "CapucineArtemisMignonisme.jpg",
+        //     "CapucineLaineAdorable.jpg",
+        //     "CapucineSurLeLit_20250210_105918.jpg",
+        //     "HermesRegardeLaTempete.jpg",
+        //     "HermesSeLecheSurSonTrone.jpg",
+        //     "HermesSurSonTrone.jpg",
+        //     "_IMG_20250211_092205.jpg",
+        //     "_IMG_20250220_091628.jpg",
+        //     "Io.jpg",
+        //     "MinushNuageTable.jpg",
+        // ];
 
 
 
@@ -240,14 +249,14 @@
         const lightboxCaption = document.getElementById('lightbox-caption');
 
         const formatCaption = (filename) => {
-        return filename
-            .replace(/^_?IMG[_-]?/, '')                            // Remove leading IMG or _IMG
-            .replace(/\.(jpg|jpeg|png)$/i, '')                    // Remove file extension
-            .replace(/_/g, ' ')                                   // Replace underscores with spaces
-            .replace(/([a-z])([A-Z])/g, '$1 $2')                  // Add space before capital letters
-            .replace(/(\d{4})(\d{2})(\d{2})[ _-]?(\d{2})(\d{2})/, '$1-$2-$3 $4:$5') // Format date/time
-            .trim();
-    };
+            return filename
+                .replace(/^_?IMG[_-]?/, '')                            // Remove leading IMG or _IMG
+                .replace(/\.(jpg|jpeg|png)$/i, '')                    // Remove file extension
+                .replace(/_/g, ' ')                                   // Replace underscores with spaces
+                .replace(/([a-z])([A-Z])/g, '$1 $2')                  // Add space before capital letters
+                .replace(/(\d{4})(\d{2})(\d{2})[ _-]?(\d{2})(\d{2})/, '$1-$2-$3 $4:$5') // Format date/time
+                .trim();
+        };
 
     </script>
 </body>
