@@ -138,31 +138,27 @@
         });
 
 
+        let catImages = [];
         fetch('./catsImagesList.json')
             .then(response => response.json())
-            .then(catImages => {
-                catImages.forEach(img => {
-                    console.log("Loaded:", img);
+            .then(catImagesList => {
+                //catImages = catImagesList; // <-- populate the array for lightbox navigation
+                catImages = catImagesList.sort(() => Math.random() - 0.5);
+
+                catImagesList.forEach((image, index) => {
+                    const img = document.createElement('img');
+                    img.src = image;
+                    img.alt = image.split('.')[0];
+
+                    img.addEventListener('click', () => {
+                        currentIndex = index;
+                        updateLightboxImage();
+                        lightbox.classList.add('show');
+                    });
+
+                    gallery.appendChild(img);
                 });
             });
-
-
-
-        //     const catImages = [
-        //     "ArtemisMinushTable.jpg",
-        //     "ArtemisRegardVilain.jpg",
-        //     "CapucineArtemisMignonisme.jpg",
-        //     "CapucineLaineAdorable.jpg",
-        //     "CapucineSurLeLit_20250210_105918.jpg",
-        //     "HermesRegardeLaTempete.jpg",
-        //     "HermesSeLecheSurSonTrone.jpg",
-        //     "HermesSurSonTrone.jpg",
-        //     "_IMG_20250211_092205.jpg",
-        //     "_IMG_20250220_091628.jpg",
-        //     "Io.jpg",
-        //     "MinushNuageTable.jpg",
-        // ];
-
 
 
         const gallery = document.querySelector('.gallery');
@@ -173,41 +169,20 @@
 
         let currentIndex = -1;
 
-        // Add images to the gallery
-        catImages.forEach((image, index) => {
-            let img = document.createElement('img');
-            img.src = `${image}`;
-            img.alt = image.split('.')[0];
-            img.addEventListener('click', () => {
-                currentIndex = index;
-                lightboxImg.src = img.src;
-                lightbox.classList.add('show');
-            });
-            gallery.appendChild(img);
-
-
-            img.addEventListener('click', () => {
-                currentIndex = index;
-                lightboxImg.src = img.src;
-                lightboxCaption.textContent = formatCaption(image);
-                lightbox.classList.add('show');
-            });
-
-        });
-
         const updateLightboxImage = () => {
-            // Fix: Adjust index BEFORE updating the image
             if (currentIndex < 0) {
-                currentIndex = catImages.length - 1; // Loop to last image
+                currentIndex = catImages.length - 1;
             } else if (currentIndex >= catImages.length) {
-                currentIndex = 0; // Loop to first image
+                currentIndex = 0;
             }
+
+            const image = catImages[currentIndex];
 
             lightboxImg.style.opacity = '0';
 
             setTimeout(() => {
-                lightboxImg.src = catImages[currentIndex];
-                lightboxCaption.textContent = formatCaption(catImages[currentIndex]);
+                lightboxImg.src = image;
+                lightboxCaption.textContent = formatCaption(image);
                 lightboxImg.style.opacity = '1';
             }, 200);
         };
